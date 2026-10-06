@@ -1,12 +1,12 @@
 {
   "name": "pawar-enterprises-leads-generator",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "description": "Public-source lead discovery and scoring system for Pawar Enterprises",
-  "main": "server-fixed.js",
+  "main": "server-v1.2.js",
   "scripts": {
-    "start": "node server-fixed.js",
-    "dev": "node --watch server-fixed.js"
+    "start": "node server-v1.2.js",
+    "dev": "node --watch server-v1.2.js"
   },
   "engines": {
     "node": ">=18"
