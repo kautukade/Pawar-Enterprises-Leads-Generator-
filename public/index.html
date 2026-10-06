@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#10233f" />
+  <title>Pawar Enterprises Lead Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">PE</div><div><strong>Pawar Enterprises</strong><span>Lead Generator</span></div></div>
+      <button class="nav active" data-view="discover">⚡ Discover Leads</button>
+      <button class="nav" data-view="saved">★ Saved Leads <b id="savedCount">0</b></button>
+      <button class="nav" data-view="about">ⓘ System Info</button>
+      <div class="side-card"><span>Connected workflow</span><a href="https://pawar-enterprises-crm.onrender.com" target="_blank">Open CRM ↗</a><a href="https://pawar-enterprises.onrender.com" target="_blank">Open Website ↗</a></div>
+      <footer>Public-source discovery • No private-data scraping</footer>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div><span class="eyebrow">PAWAR ENTERPRISES</span><h1 id="pageTitle">Discover Leads</h1></div>
+        <div class="status-pill"><i></i><span id="providerStatus">Checking providers...</span></div>
+      </header>
+
+      <section class="content" id="discoverView">
+        <section class="hero-card">
+          <div><span class="eyebrow">LOCAL SALES ENGINE</span><h2>Find high-value prospects around any locality.</h2><p>Search public business/property data, remove duplicates, score every lead and shortlist the best opportunities for Pawar Enterprises.</p></div>
+          <div class="hero-stats"><div><strong id="totalFound">0</strong><span>Found</span></div><div><strong id="hotFound">0</strong><span>Hot</span></div><div><strong id="withPhone">0</strong><span>With Phone</span></div></div>
+        </section>
+
+        <section class="search-panel panel">
+          <div class="panel-head"><div><h3>Lead Search</h3><p>Choose locality, target type and service opportunity.</p></div><span class="live-badge">LIVE PUBLIC DATA</span></div>
+          <form id="searchForm" class="search-grid">
+            <label class="field field-wide"><span>Area / Locality</span><input id="area" placeholder="e.g. Ulwe, Navi Mumbai" value="Ulwe, Navi Mumbai" required /></label>
+            <label class="field"><span>Target Category</span><select id="category"></select></label>
+            <label class="field"><span>Service Opportunity</span><select id="service"></select></label>
+            <label class="field"><span>Data Provider</span><select id="provider"><option value="osm">OpenStreetMap (Free)</option><option value="google">Google Places</option><option value="both">Both Providers</option></select></label>
+            <label class="field"><span>Radius</span><select id="radius"><option value="3000">3 km</option><option value="6000" selected>6 km</option><option value="10000">10 km</option><option value="15000">15 km</option></select></label>
+            <label class="field"><span>Lead Limit</span><select id="limit"><option>20</option><option selected>30</option><option>50</option><option>100</option></select></label>
+            <button class="generate-btn" id="generateBtn" type="submit">⚡ Generate Leads</button>
+          </form>
+          <div id="searchMessage" class="message" hidden></div>
+        </section>
+
+        <section class="panel results-panel">
+          <div class="panel-head results-head"><div><h3>Discovered Leads</h3><p id="resultMeta">Run a search to discover potential customers.</p></div><div class="toolbar"><input id="tableSearch" placeholder="Filter results..." /><select id="scoreFilter"><option value="0">All scores</option><option value="80">Hot 80+</option><option value="60">Good 60+</option></select><button id="exportBtn" class="btn">Export CSV</button></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Prospect</th><th>Opportunity</th><th>Contact</th><th>Score</th><th>Source</th><th>Actions</th></tr></thead><tbody id="leadRows"><tr><td colspan="6" class="empty">No leads yet. Choose an area and click Generate Leads.</td></tr></tbody></table></div>
+        </section>
+      </section>
+
+      <section class="content" id="savedView" hidden>
+        <section class="panel"><div class="panel-head"><div><h3>Saved Leads</h3><p>Your shortlisted prospects are stored in this browser.</p></div><div class="toolbar"><button id="savedExportBtn" class="btn">Export CSV</button><button id="clearSavedBtn" class="btn danger">Clear Saved</button></div></div><div class="table-wrap"><table><thead><tr><th>Prospect</th><th>Opportunity</th><th>Contact</th><th>Score</th><th>Source</th><th>Actions</th></tr></thead><tbody id="savedRows"></tbody></table></div></section>
+      </section>
+
+      <section class="content" id="aboutView" hidden>
+        <section class="panel info-grid"><div><span class="eyebrow">HOW IT WORKS</span><h3>Public data → scoring → sales action</h3><p>The generator uses official/public map data instead of unauthorized scraping. It discovers businesses and properties, checks available public contact fields, scores quality and lets your team save, call or WhatsApp leads.</p></div><div class="steps"><div><b>1</b><span>Search locality & category</span></div><div><b>2</b><span>Discover public listings</span></div><div><b>3</b><span>Deduplicate & score</span></div><div><b>4</b><span>Call, WhatsApp, save or export</span></div></div></section>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="/app.js"></script>
+</body>
+</html>
