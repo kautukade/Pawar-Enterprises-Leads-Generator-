@@ -63,9 +63,9 @@ async function init(){
     $('service').innerHTML=config.services.map(x=>`<option value="${esc(x.value)}">${esc(x.label)}</option>`).join('');
     if(!config.googleEnabled){
       [...$('provider').options].forEach(o=>{if(o.value==='google'||o.value==='both')o.disabled=true});
-      $('providerStatus').textContent='OpenStreetMap ready • browser fallback enabled • Google key not configured';
+      $('providerStatus').textContent='OpenStreetMap browser-direct ready • Google key not configured';
     }else{
-      $('providerStatus').textContent='OpenStreetMap + Google Places ready • browser fallback enabled';
+      $('providerStatus').textContent='OpenStreetMap browser-direct + Google Places ready';
     }
   }catch(e){
     $('providerStatus').textContent='Backend unavailable • browser OSM fallback available';
@@ -120,22 +120,18 @@ async function runSearch(e){
 
   try{
     let data;
-    try{
+    if(payload.provider==='osm'){
+      showMessage('Searching OpenStreetMap directly from your browser…',false);
+      data=await browserOSMSearch(payload);
+    }else{
       const r=await fetch('/api/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
       data=await r.json();
       if(!r.ok)throw new Error(data.error||'Server search failed');
-    }catch(serverErr){
-      if(payload.provider!=='osm'){
-        throw serverErr;
-      }
-      showMessage('Render cannot reach the public OSM server right now. Trying secure browser-direct fallback…',false);
-      data=await browserOSMSearch(payload);
-      data.warnings=[`Server fallback used: ${serverErr.message}`];
     }
 
     applySearchResult(data);
     if(data.warnings?.length){
-      showMessage(`Search completed using fallback. ${data.warnings.join(' | ')}`,false);
+      showMessage(`Search completed. ${data.warnings.join(' | ')}`,false);
     }else{
       hideMessage();
     }
